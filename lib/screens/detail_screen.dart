@@ -1,8 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toonflix/models/webtoon_detail_model.dart';
+import 'package:toonflix/services/api_service.dart';
 
-class DetailScreen extends StatelessWidget {
+import '../models/webtoon_episode_model.dart';
+
+class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
+
 
   const DetailScreen({
     super.key,
@@ -10,6 +14,24 @@ class DetailScreen extends StatelessWidget {
     required this.thumb,
     required this.id,
   });
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+
+  late Future<WebtoonDetailModel> webtoon;
+  late Future<List<WebtoonEpisodeModel>> episodes;
+  
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    webtoon = ApiService.getToonById(widget.id);
+    episodes = ApiService.getLatestEpsiodesById(widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +46,7 @@ class DetailScreen extends StatelessWidget {
         //앱 바 밑에 음영 사라지게 만드는 코드
         elevation: 2,
         title: Text(
-          title,
+          widget.title,
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -40,7 +62,7 @@ class DetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Hero(
-                tag: id,
+                tag: widget.id,
                 child: Container(
                   width: 200,
                   clipBehavior: Clip.hardEdge,
@@ -54,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                         )
                       ]),
                   child: Image.network(
-                    thumb,
+                    widget.thumb,
                     headers: const {
                       "User-Agent":
                           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
