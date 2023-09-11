@@ -7,7 +7,6 @@ import '../models/webtoon_episode_model.dart';
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
 
-
   const DetailScreen({
     super.key,
     required this.title,
@@ -20,14 +19,11 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-
   late Future<WebtoonDetailModel> webtoon;
   late Future<List<WebtoonEpisodeModel>> episodes;
-  
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     webtoon = ApiService.getToonById(widget.id);
     episodes = ApiService.getLatestEpsiodesById(widget.id);
@@ -85,6 +81,40 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          FutureBuilder(
+            future: webtoon,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data!.about,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(height: 15,),
+                      Text(
+                        '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return Text("...");
+            },
           ),
         ],
       ),
