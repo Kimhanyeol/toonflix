@@ -30,4 +30,25 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+        <!-- If your app checks for https support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 </manifest>
+
+
+<!--메인페스트 하위에 넣는건지 그대로 위에 놓는건지 모르겠음-->
+
+<!--    &lt;!&ndash; Provide required visibility configuration for API level 30 and above &ndash;&gt;-->
+<!--<queries>-->
+<!--&lt;!&ndash; If your app checks for https support &ndash;&gt;-->
+<!--<intent>-->
+<!--    <action android:name="android.intent.action.VIEW" />-->
+<!--    <data android:scheme="https" />-->
+<!--</intent>-->
+<!--</queries>-->
