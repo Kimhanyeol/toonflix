@@ -26,6 +26,8 @@ class _DetailScreenState extends State<DetailScreen> {
   late SharedPreferences prefs;
   bool isLiked = false;
 
+
+  //좋아요 부분
   Future initPrefs() async {
     prefs = await SharedPreferences.getInstance();
     final likedToons = prefs.getStringList('likedToons');
@@ -67,6 +69,8 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
+
       appBar: AppBar(
         centerTitle: true,
         //글자 색
@@ -91,6 +95,8 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
